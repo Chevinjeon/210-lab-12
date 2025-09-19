@@ -100,3 +100,50 @@ int main() {
     cout << "\nDone. Program completed successfully.\n";
     return 0;
 }
+
+
+//================= Function Definitions ====================
+
+// loadSteps() reads exactly DAYS integers from filename into 'steps'.
+// Validates: file open, numeric extraction, exact count.
+bool loadSteps(const string& filename, array<int, DAYS>& steps) {
+    ifstream in(filename.c_str());
+    if (!in) {
+        cout << "ERROR: Could not open input file '" << filename << "'. "
+             << "Please ensure the file exists in the working directory.\n";
+        return false;
+    }
+
+    size_t count = 0;
+    // Use operator[] for speed; we also show at() later in demo functions
+    while (count < DAYS && (in >> steps[count])) {
+        ++count;
+    }
+
+    // If extraction failed mid-way, report a specific error (non-integer or premature EOF)
+    if (count < DAYS) {
+        cout << "ERROR: Only read " << count << " values from '" << filename
+             << "'. Expected exactly " << DAYS << " integers (one per line).\n"
+             << "Tip: Check for non-numeric characters or missing lines.\n";
+        return false;
+    }
+
+    // If file contains extra tokens beyond DAYS, that’s fine for this lab—but we can warn:
+    int dummy;
+    if (in >> dummy) {
+        cout << "WARNING: File contains more than " << DAYS
+             << " integers. Only the first " << DAYS << " were used.\n";
+    }
+
+    return true;
+}
+
+// printArray() pretty-prints the array values in 10 columns per line.
+void printArray(const array<int, DAYS>& steps) {
+    const int COLS = 10; // constant local formatting
+    for (size_t i = 0; i < steps.size(); ++i) {
+        cout << setw(FIELD_W) << steps[i];
+        if ((i + 1) % COLS == 0) cout << '\n';
+    }
+    if (DAYS % COLS != 0) cout << '\n';
+}
