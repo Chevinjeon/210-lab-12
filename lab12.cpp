@@ -6,3 +6,12 @@
 // - Demonstrates std::array member functions and iterator-based operations.
 // - Validates file open and data length, prints specific error messages, and shows results.
 
+
+#include <iostream>     // cout, cin
+#include <fstream>      // ifstream
+#include <array>        // std::array
+#include <algorithm>    // min_element, max_element, sort, copy
+#include <numeric>      // accumulate
+#include <iomanip>      // setw
+#include <string>       // string
+using namespace std;
